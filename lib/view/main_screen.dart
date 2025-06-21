@@ -13,14 +13,11 @@ class Main_screen extends StatelessWidget {
           children: [
             Text("Meme #21",style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
             SizedBox(height: 10,),
-            Text("Tar get 500 memes",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 20),),
+            Text("Target 500 memes",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 20),),
             SizedBox(height: 10,),
             Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS94nv5ndZrXH_dklUctyIbp916IXmSKh0mgw&s"),
             SizedBox(height: 10,),
-            ElevatedButton(onPressed: (){}, child: Container(
-                height: 20,
-                width: 70,
-                child: Center(child: Text("More_Meme!!"))))
+            ElevatedButton(onPressed: (){}, child: Text("More memes!!"))
 
           ],
         ),
