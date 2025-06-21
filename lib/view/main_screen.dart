@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
-class Main_screen extends StatelessWidget {
-  const Main_screen({super.key});
+import 'package:flutter_meme_proj/controller/fetchMeme.dart';
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+
+  void updateImg() async {
+    print("function called");
+
+    String newUrl = await FetchMeme.fetchNewMeme();
+    print("function called");
+    setState(() {
+      url=newUrl;
+    });
+  }
+
+  String url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS94nv5ndZrXH_dklUctyIbp916IXmSKh0mgw&s";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +33,11 @@ class Main_screen extends StatelessWidget {
             SizedBox(height: 10,),
             Text("Target 500 memes",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 20),),
             SizedBox(height: 10,),
-            Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS94nv5ndZrXH_dklUctyIbp916IXmSKh0mgw&s"),
+            Image.network(url),
             SizedBox(height: 10,),
-            ElevatedButton(onPressed: (){}, child: Text("More memes!!"))
+            ElevatedButton(onPressed: (){
+              updateImg();
+            }, child: Text("More memes!!"))
 
           ],
         ),
