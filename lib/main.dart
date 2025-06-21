@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meme_proj/view/main_screen.dart';
 import 'package:flutter_meme_proj/view/splash_screen.dart';
 
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: splash_screen(),
+      home: Main_screen(),
     );
   }
 }
