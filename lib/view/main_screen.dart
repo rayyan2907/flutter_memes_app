@@ -24,15 +24,18 @@ class _MainScreenState extends State<MainScreen> {
     print("function called");
     setState(() {
       url = newUrl;
+      isLoading=false;
+
     });
   }
   @override
   void initState() {
     super.initState();
-    GetInitMemeNo();  // ← fetch meme count at start
+    GetInitMemeNo();
   }
 
   int? memeNo;
+  bool isLoading = true;
   String url =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS94nv5ndZrXH_dklUctyIbp916IXmSKh0mgw&s";
   @override
@@ -62,6 +65,10 @@ class _MainScreenState extends State<MainScreen> {
               style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
             ),
             SizedBox(height: 10),
+            isLoading ? Container(
+              child: CircularProgressIndicator(),
+            ):
+
             Image.network(url),
             SizedBox(height: 10),
             ElevatedButton(
