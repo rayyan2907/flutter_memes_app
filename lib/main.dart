@@ -7,10 +7,28 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  bool showSplash = true;
+showSplashScreen(){
+    Future.delayed(Duration(seconds: 5),(){
+  setState(() {
+    showSplash= false;
+  });
+    });
+}
+@override
+  void initState() {
+    // TODO: implement initState
+  showSplashScreen();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +39,7 @@ class MyApp extends StatelessWidget {
 
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
       ),
-      home: MainScreen(),
+      home: showSplash ? splash_screen():MainScreen(),
     );
   }
 }
