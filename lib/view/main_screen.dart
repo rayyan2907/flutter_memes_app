@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meme_proj/controller/fetchMeme.dart';
+import 'package:flutter_meme_proj/controller/saveMyData.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -8,6 +10,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  GetInitMemeNo() async {
+    memeNo = await saveMyData.fetchData();
+    setState(() {
+
+    });
+  }
 
   void updateImg() async {
     print("function called");
@@ -15,30 +23,55 @@ class _MainScreenState extends State<MainScreen> {
     String newUrl = await FetchMeme.fetchNewMeme();
     print("function called");
     setState(() {
-      url=newUrl;
+      url = newUrl;
     });
   }
+  @override
+  void initState() {
+    super.initState();
+    GetInitMemeNo();  // ← fetch meme count at start
+  }
 
-  String url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS94nv5ndZrXH_dklUctyIbp916IXmSKh0mgw&s";
+  int? memeNo;
+  String url =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS94nv5ndZrXH_dklUctyIbp916IXmSKh0mgw&s";
   @override
   Widget build(BuildContext context) {
+    if (memeNo == null) {
+      memeNo=1;
+      return const Scaffold(
+
+        body: Center(child: CircularProgressIndicator()),
+
+      );
+    }
     return Scaffold(
       body: Center(
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
-            Text("Meme #21",style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
-            SizedBox(height: 10,),
-            Text("Target 500 memes",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 20),),
-            SizedBox(height: 10,),
-            Image.network(url),
-            SizedBox(height: 10,),
-            ElevatedButton(onPressed: (){
-              updateImg();
-            }, child: Text("More memes!!"))
+            Text(
+              "Meme #$memeNo",
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
 
+            SizedBox(height: 10),
+            Text(
+              "Target 500 memes",
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
+            ),
+            SizedBox(height: 10),
+            Image.network(url),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () async{
+                await saveMyData.saveData(memeNo!+1);
+                GetInitMemeNo();
+                updateImg();
+              },
+              child: Text("More memes!!"),
+            ),
           ],
         ),
       ),
