@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   int? memeNo;
-  bool isLoading = true;
+  bool isLoading = false;
   String url =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS94nv5ndZrXH_dklUctyIbp916IXmSKh0mgw&s";
   @override
@@ -73,6 +73,10 @@ class _MainScreenState extends State<MainScreen> {
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async{
+                setState(() {
+                  isLoading = true;
+
+                });
                 await saveMyData.saveData(memeNo!+1);
                 GetInitMemeNo();
                 updateImg();
